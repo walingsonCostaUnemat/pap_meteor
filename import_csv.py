@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+
+
 def main():
     option = st.sidebar.text_input("I - Digite o separador do seu .CSV",',')
     
@@ -25,9 +27,37 @@ def main():
         try:
             data.to_csv('data.csv',sep=option)
             #Ver dados brutos        
-            #visualizar dados em branco
-            st.write(df)         
-                   
-main()  
+            #visualizar dados em branco            
+            
+            st.sidebar.subheader("Preparação dados")
+            page = st.sidebar.selectbox(
+                "III - Navegar para", ["🏠Homepage", "🔎Inspecionar dados brutos", "💹Estatistica básica dos dados",
+                "⚒️Identificação de possíveis erros","✍️Preencher dados ausentes"])
+            
+            if page == "🏠Homepage":
+                    st.warning('Para carregar o arquivo corretamente digite o tipo de separador do arquivo.CSV')           
+            if page == "🔎Inspecionar dados brutos": 
+                opcao = st.sidebar.radio('⬇',('Ver dados', 'Excluir dados'))
+                if opcao == 'Ver dados':
+                    st.write('### Dados brutos', df)
+                else:
+                    excluir_alterar(df)
+                          
+                    
+            if page == '💹Estatistica básica dos dados':   
+                estatistica(df)
+            if page == "⚒️Identificação de possíveis erros":
+                configuracao(df)   
+            if page == '✍️Preencher dados ausentes':
+                imputar(df)
 
-             
+                
+        except TypeError:
+            st.error('Algo deu errado')
+            st.sidebar.error('Selecione o separador correto')
+  
+    
+
+
+           
+main()               
