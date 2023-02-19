@@ -26,15 +26,8 @@ def main():
             data.to_csv('data.csv',sep=option)
             #Ver dados brutos        
             #visualizar dados em branco
-            st.write(df)
-
-            
-        
-  
-    
-
-
-           
+            st.write(df)         
+                   
 main()  
 
              
